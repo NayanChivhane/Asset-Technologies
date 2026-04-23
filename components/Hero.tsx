@@ -18,10 +18,17 @@ export default function Hero() {
 
         <div className="mt-6 flex justify-center gap-4">
           <button className="bg-white text-black px-6 py-2 cursor-pointer hover:bg-[#0000ff] transition-colors">
-            Get Free Consultation
+            <a href="#contact">Get Free Consultation</a>
           </button>
           <button className="border px-6 py-2 cursor-pointer hover:text-green-400 transition-colors">
-            WhatsApp
+            <a
+              href="https://wa.me/919284232669?text=Hi%20I%20want%20to%20book%20a%20consultation"
+              target="_blank"
+              rel="noopener noreferrer"
+              >
+              WhatsApp
+            </a>
+          
           </button>
         </div>
       </div>

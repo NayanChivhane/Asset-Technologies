@@ -4,7 +4,7 @@ export default function Contact() {
       <div className="max-w-3xl mx-auto text-center">
         {/* Header Text */}
         <h2 className="text-[#1d2129] text-4xl md:text-5xl font-bold mb-4">
-          What can us do for you?
+          What can we do for you?
         </h2>
         <p className="text-gray-600 text-lg mb-12 max-w-2xl mx-auto leading-relaxed">
           We are ready to work on a project of any complexity, 

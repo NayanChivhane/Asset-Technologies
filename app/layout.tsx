@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Asset Technologies",
   description: "A compelling description for SEO.",
 };
+<html lang="en" className="scroll-smooth"></html>
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
