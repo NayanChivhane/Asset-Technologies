@@ -1,98 +1,90 @@
-import { px } from 'framer-motion';
-import Image from 'next/image';
+"use client";
+
+import Image from "next/image";
+import useEmblaCarousel from "embla-carousel-react";
+import { useState, useEffect } from "react";
 
 export default function WhyChooseUs() {
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: "center",
+    loop: false,
+  });
+
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    const onSelect = () => {
+      setSelectedIndex(emblaApi.selectedScrollSnap());
+    };
+
+    emblaApi.on("select", onSelect);
+    onSelect();
+  }, [emblaApi]);
+
+  const cards = [
+    { img: "/IT Hardware.webp", title: "IT Hardware", dark: false },
+    { img: "/IT SERVICES 1.webp", title: "IT Services", dark: true },
+    { img: "/PERIPHERALS 1.webp", title: "Peripherals", dark: false },
+    { img: "/SOFTWARE SOLUTIONS.webp", title: "Software Solutions", dark: true },
+  ];
+
   return (
-    <div className="flex flex-row flex-wrap justify-center gap-8 p-10">
-     <div 
-      className="flex flex-col overflow-hidden rounded-xl shadow-lg border border-gray-200"
-      style={{ width: '252px', height: '500px' }}
-    >
-      {/* Top 70% - Image Section */}
-      <div className="relative h-[70%] w-full bg-[#001f3f]">
-        <Image
-          src="/IT Hardware.webp" // Path to your image in the public folder
-          alt="Hardware Card"
-          fill
-          sizes='250px'
-          className="object-cover"
-          priority // Ensures the image loads quickly
-        />
+    <div className="w-full px-4">
+      
+      {/* Carousel */}
+      <div className="overflow-hidden" ref={emblaRef}>
+        <div className="flex">
+          {cards.map((card, index) => (
+            <div
+              key={index}
+              className="flex-[0_0_80%] md:flex-[0_0_25%] flex justify-center"
+            >
+              <div className="w-[252px] h-[500px] flex flex-col overflow-hidden rounded-xl shadow-lg border border-gray-200 transition-transform duration-300">
+                
+                {/* Image */}
+                <div className={`relative h-[70%] w-full ${card.dark ? "bg-white" : "bg-[#001f3f]"}`}>
+                  <Image
+                    src={card.img}
+                    alt={card.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+
+                {/* Content */}
+                <div
+                  className={`h-[30%] p-4 flex flex-col justify-center items-center text-center ${
+                    card.dark ? "bg-[#001f3f]" : "bg-white"
+                  }`}
+                >
+                  <h3 className={`font-semibold text-sm ${card.dark ? "text-white" : "text-[#001f3f]"}`}>
+                    {card.title}
+                  </h3>
+                  <p className={`text-xs mt-1 ${card.dark ? "text-blue-200" : "text-[#001f3f]"}`}>
+                    Short description goes here.
+                  </p>
+                </div>
+
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* Bottom 30% - Dark Blue Section */}
-      <div className="h-[30%] bg-white p-4 flex flex-col justify-center items-center text-center">
-        <h3 className="text-[#001f3f] font-bold text-sm">IT Hardware</h3>
-        <p className="text-[#001f3f] text-xs mt-1">Short description goes here.</p>
+      {/* Dots */}
+      <div className="flex justify-center mt-6 gap-2">
+        {cards.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => emblaApi && emblaApi.scrollTo(index)}
+            className={`w-3 h-3 rounded-full transition ${
+              index === selectedIndex ? "bg-blue-600" : "bg-gray-400"
+            }`}
+          />
+        ))}
       </div>
     </div>
-         <div 
-      className="flex flex-col overflow-hidden rounded-xl shadow-lg border border-gray-200"
-      style={{ width: '252px', height: '500px' }}
-    >
-      {/* Top 70% - Image Section */}
-      <div className="relative h-[70%] w-full bg-white">
-        <Image
-          src="/IT SERVICES 1.webp" // Path to your image in the public folder
-          alt="Services Card"
-          fill
-          sizes='250px'
-          className="object-cover"
-          priority // Ensures the image loads quickly
-        />
-      </div>
-
-      {/* Bottom 30% - Dark Blue Section */}
-      <div className="h-[30%] bg-[#001f3f] p-4 flex flex-col justify-center items-center text-center">
-        <h3 className="text-white font-semibold text-sm">IT Services</h3>
-        <p className="text-blue-200 text-xs mt-1">Short description goes here.</p>
-      </div>
-    </div>
-         <div 
-      className="flex flex-col overflow-hidden rounded-xl shadow-lg border border-gray-200"
-      style={{ width: '252px', height: '500px' }}
-    >
-      {/* Top 70% - Image Section */}
-      <div className="relative h-[70%] w-full bg-[#001f3f]">
-        <Image
-          src="/PERIPHERALS 1.webp" // Path to your image in the public folder
-          alt="Peripherals Card"
-          fill
-          sizes='250px'
-          className="object-cover"
-          priority // Ensures the image loads quickly
-        />
-      </div>
-
-      {/* Bottom 30% - Dark Blue Section */}
-      <div className="h-[30%] bg-white p-4 flex flex-col justify-center items-center text-center">
-        <h3 className="text-[#001f3f] font-bold text-sm">Peripherals</h3>
-        <p className="text-[#001f3f] text-xs mt-1">Short description goes here.</p>
-      </div>
-    </div>
-         <div 
-      className="flex flex-col overflow-hidden rounded-xl shadow-lg border border-gray-200"
-      style={{ width: '252px', height: '500px' }}
-    >
-      {/* Top 70% - Image Section */}
-      <div className="relative h-[70%] w-full bg-white">
-        <Image
-          src="/SOFTWARE SOLUTIONS.webp" // Path to your image in the public folder
-          alt="Solution Card"
-          fill
-          sizes='250px'
-          className="object-cover"
-          priority // Ensures the image loads quickly
-        />
-      </div>
-
-      {/* Bottom 30% - Dark Blue Section */}
-      <div className="h-[30%] bg-[#001f3f] p-4 flex flex-col justify-center items-center text-center">
-        <h3 className="text-white font-semibold text-sm">Software Solutions</h3>
-        <p className="text-blue-200 text-xs mt-1">Short description goes here.</p>
-      </div>
-    </div>
-    </div>
-    
   );
 }
